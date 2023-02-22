@@ -1,0 +1,42 @@
+<div class="container">
+  <form #loginForm="ngForm" (ngSubmit)="submitLogin(loginForm.value)">
+    <div class="form-group my-3">
+      <input
+        type="text"
+        class="form-control my-2"
+        name="email"
+        ngModel
+        #email="ngModel"
+        placeholder="Enter your email"
+        required
+        pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+      />
+      <div *ngIf="email.touched && email.invalid">
+        <p *ngIf="email.errors && email.errors['required']">This field is required</p>
+        <p *ngIf="email.errors && email.errors['pattern']">invalid email!</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <input
+        type="password"
+        class="form-control my-2"
+        name="password"
+        ngModel
+        #password="ngModel"
+        placeholder="Enter your password"
+        required
+        minlength="8"
+      />
+      <div *ngIf="password.touched && password.invalid">
+        <p *ngIf="password.errors && password.errors['required']" class="text-danger">This field is required</p>
+        <p *ngIf="password.errors && password.errors['minlength']" class="text-danger">Password is too short!</p>
+      </div>
+    </div>
+    <div class="form-group text-center">
+      <button [disabled]="loginForm.invalid" class="btn btn-outline-primary m-2">login</button>
+    </div>
+  </form>
+  <div class="my-4 text-center">
+    If you don't have an account yet <a routerLink="/auth/register" class="text-success">Register</a>
+</div>
+</div>
